@@ -250,8 +250,32 @@ function setLang(lang) {
       btn.classList.add('active');
     }
   });
+  // Mirror label into the mobile dropdown trigger
+  const label = document.getElementById('langCurrentLabel');
+  if (label) label.textContent = lang === 'uk' ? 'UA' : lang.toUpperCase();
+  // Close the mobile dropdown after selection
+  const sw = document.getElementById('langSwitcher');
+  if (sw) {
+    sw.classList.remove('open');
+    const trigger = sw.querySelector('.lang-current');
+    if (trigger) trigger.setAttribute('aria-expanded', 'false');
+  }
   document.documentElement.lang = lang;
 }
+
+// ── LANG DROPDOWN (mobile) ────────────────────────────────────────────────────
+function toggleLangMenu(e) {
+  e?.stopPropagation();
+  const sw = document.getElementById('langSwitcher');
+  if (!sw) return;
+  const isOpen = sw.classList.toggle('open');
+  const trigger = sw.querySelector('.lang-current');
+  if (trigger) trigger.setAttribute('aria-expanded', String(isOpen));
+}
+document.addEventListener('click', (e) => {
+  const sw = document.getElementById('langSwitcher');
+  if (sw && !sw.contains(e.target)) sw.classList.remove('open');
+});
 
 // ── CALL DROPDOWN ─────────────────────────────────────────────────────────────
 function toggleCallMenu(btn) {
@@ -403,7 +427,7 @@ window.setLang = function(lang) {
 // setLang уже висит на window (переопределение выше). Остальные — здесь,
 // потому что в ES-модуле function-декларации НЕ становятся глобальными.
 Object.assign(window, {
-  closeNav, toggleNav, toggleTheme, toggleCallMenu,
+  closeNav, toggleNav, toggleTheme, toggleCallMenu, toggleLangMenu,
   filterGallery, lbNav, closeLightbox, closeLightboxBtn,
 });
 
