@@ -40,18 +40,31 @@
       --header-h: 72px;
     }
     [data-theme="light"] body::before { opacity: 0.015; }
+
+    /* Blueprint grid + vignette for hero in light theme — evokes technical drawing */
+    [data-theme="light"] #home {
+      background-image:
+        radial-gradient(ellipse 85% 75% at 50% 45%, transparent 40%, var(--bg) 100%),
+        linear-gradient(to right,  rgba(45,122,64,0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(45,122,64,0.05) 1px, transparent 1px),
+        linear-gradient(to right,  rgba(45,122,64,0.025) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(45,122,64,0.025) 1px, transparent 1px);
+      background-size: auto, 96px 96px, 96px 96px, 24px 24px, 24px 24px;
+      background-position: 0 0, -1px -1px, -1px -1px, -1px -1px, -1px -1px;
+    }
     [data-theme="light"] #home::after {
-      background: radial-gradient(circle, rgba(45,122,64,0.12) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(45,122,64,0.14) 0%, transparent 65%);
+      width: 720px; height: 720px;
     }
     [data-theme="light"] #home::before {
-      background: radial-gradient(circle, rgba(45,122,64,0.08) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(45,122,64,0.09) 0%, transparent 70%);
+      width: 520px; height: 520px;
     }
     [data-theme="light"] header {
       background: rgba(245,247,245,0.95);
       border-bottom: 1px solid rgba(45,122,64,0.15);
     }
     [data-theme="light"] .service-card,
-    [data-theme="light"] .contact-card,
     [data-theme="light"] .contact-message {
       box-shadow: 0 2px 16px rgba(0,0,0,0.06);
     }
@@ -144,16 +157,29 @@
 
     nav { display: flex; align-items: center; gap: 32px; }
     nav a {
+      position: relative;
       text-decoration: none;
-      color: var(--muted);
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 1.2px;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 1.4px;
       text-transform: uppercase;
+      padding: 6px 2px;
       transition: color 0.2s;
       cursor: pointer;
     }
+    nav a::after {
+      content: '';
+      position: absolute;
+      left: 2px; right: 2px; bottom: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.25s ease;
+    }
     nav a:hover { color: var(--accent); }
+    nav a:hover::after { transform: scaleX(1); }
 
     .header-right { display: flex; align-items: center; gap: 20px; }
 
@@ -599,48 +625,93 @@
     /* ── CONTACT ── */
     #contact { background: var(--bg); }
     .contact-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 60px; align-items: start;
+      display: flex; flex-direction: column;
+      gap: 50px;
     }
+    /* "Kontakty" row — full-width, two persons side-by-side */
     .contact-card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 40px;
+      position: relative;
+      padding: 40px 24px 40px 42px;
+      background: none;
+      border: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 56px;
+      align-items: start;
+    }
+    .contact-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 44px; bottom: 44px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent), transparent 95%);
+    }
+    /* Large decorative "//" mark in top-right — blueprint feel */
+    .contact-card::after {
+      content: '//';
+      position: absolute;
+      top: 26px; right: 12px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3.5rem;
+      line-height: 1;
+      letter-spacing: 2px;
+      color: var(--accent);
+      opacity: 0.15;
+      pointer-events: none;
     }
     .contact-card h3 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.6rem; letter-spacing: 2px;
-      color: var(--text);
-      margin-bottom: 24px;
+      grid-column: 1 / -1;
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0 0 36px;
     }
     .contact-person {
-      margin-bottom: 32px;
-      padding-bottom: 32px;
-      border-bottom: 1px solid var(--border);
+      position: relative;
+      padding: 0;
+      margin: 0;
+      border: none;
     }
-    .contact-person:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    .contact-person + .contact-person {
+      padding-left: 56px;
+      border-left: 1px solid var(--border);
+    }
     .contact-name {
-      font-weight: 700; font-size: 1rem;
-      color: var(--text);
-      letter-spacing: 0.5px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
     }
     .contact-nip {
-      font-size: 0.72rem;
+      font-size: 0.66rem;
       color: var(--muted);
       font-weight: 400;
-      letter-spacing: 1px;
+      letter-spacing: 1.2px;
       text-transform: uppercase;
-      margin: 2px 0 12px;
+      margin: 3px 0 16px;
+      opacity: 0.75;
     }
-    .contact-line {
-      display: flex; align-items: center; gap: 10px;
-      margin-bottom: 8px;
-    }
+    .contact-line { margin-bottom: 6px; }
     .contact-line a {
-      color: var(--muted); text-decoration: none;
-      font-size: 0.9rem; font-weight: 300;
+      color: var(--muted);
+      text-decoration: none;
       transition: color 0.15s;
+    }
+    .contact-line a[href^="tel:"] {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      line-height: 1.1;
+      letter-spacing: 2px;
+      color: var(--text);
+    }
+    .contact-line a[href^="mailto:"] {
+      font-size: 0.88rem;
+      font-weight: 300;
+      color: var(--muted);
     }
     .contact-line a:hover { color: var(--accent); }
 
@@ -738,8 +809,10 @@
         min-height: 44px;
         display: flex; align-items: center;
         border-bottom: 1px solid var(--border);
+        font-size: 0.95rem;
       }
       nav a:last-child { border-bottom: none; }
+      nav a::after { display: none; }
 
       .burger {
         display: flex;
@@ -788,9 +861,23 @@
       .filter-btn { padding: 10px 14px; font-size: 0.72rem; min-height: 40px; }
       .filter-count { font-size: 0.65rem; }
 
-      .contact-grid { grid-template-columns: 1fr; gap: 30px; }
-      .contact-card, .contact-message { padding: 28px 22px; }
-      .contact-line a { font-size: 0.95rem; padding: 6px 0; display: inline-block; }
+      .contact-grid { gap: 40px; }
+      .contact-card {
+        grid-template-columns: 1fr;
+        row-gap: 32px;
+        padding: 20px 16px 20px 28px;
+      }
+      .contact-card::before { top: 24px; bottom: 24px; }
+      .contact-card::after { font-size: 2.8rem; top: 4px; right: 4px; }
+      .contact-card h3 { margin-bottom: 8px; }
+      .contact-person + .contact-person {
+        padding: 32px 0 0;
+        border-left: none;
+        border-top: 1px solid var(--border);
+      }
+      .contact-line a[href^="tel:"] { font-size: 1.7rem; }
+      .contact-message { padding: 28px 22px; }
+      .contact-line a { padding: 6px 0; display: inline-block; }
 
       section { padding: 60px 20px; }
       .section-sub { margin-bottom: 40px; }
