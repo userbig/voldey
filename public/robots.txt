@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# ЗАМЕНИТЬ на реальный URL после выбора домена
+Sitemap: https://example.github.io/voldey/sitemap.xml

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ЗАМЕНИТЬ URL на реальный после выбора домена -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://example.github.io/voldey/</loc>
+    <lastmod>2026-04-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://example.github.io/voldey/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://example.github.io/voldey/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://example.github.io/voldey/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://example.github.io/voldey/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://example.github.io/voldey/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://example.github.io/voldey/"/>
+  </url>
+</urlset>
