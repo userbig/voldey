@@ -50,7 +50,6 @@
       background: rgba(245,247,245,0.95);
       border-bottom: 1px solid rgba(45,122,64,0.15);
     }
-    [data-theme="light"] .stat-card,
     [data-theme="light"] .service-card,
     [data-theme="light"] .contact-card,
     [data-theme="light"] .contact-message {
@@ -58,8 +57,6 @@
     }
     [data-theme="light"] .service-num { color: rgba(45,122,64,0.1); }
     [data-theme="light"] .hero-title { color: #1a2e1f; }
-    [data-theme="light"] .stat-num { color: var(--green); }
-    [data-theme="light"] .feature-icon { background: rgba(45,122,64,0.1); }
     [data-theme="light"] .gallery-item { background: #e8ede9; }
     [data-theme="light"] .project-card { background: #f0f5f1; }
     [data-theme="light"] .filter-btn { background: #fff; color: #4a6b52; }
@@ -77,13 +74,15 @@
       width: 38px; height: 38px;
       border-radius: 8px;
       cursor: pointer;
-      font-size: 1rem;
-      display: flex; align-items: center; justify-content: center;
+      display: inline-flex; align-items: center; justify-content: center;
       transition: all 0.2s;
       flex-shrink: 0;
       padding: 0;
     }
     .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+    .theme-toggle svg { width: 18px; height: 18px; display: none; }
+    [data-theme="dark"]  .theme-toggle .icon-sun  { display: block; }
+    [data-theme="light"] .theme-toggle .icon-moon { display: block; }
 
     /* ── NOISE OVERLAY ── */
     body::before {
@@ -179,6 +178,7 @@
     .btn-call:hover { background: var(--green2); }
     .btn-call .arrow { margin-left: 6px; transition: transform 0.2s; display: inline-block; }
     .btn-call.open .arrow { transform: rotate(180deg); }
+    .btn-call .icon-phone { display: none; width: 18px; height: 18px; }
 
     .call-dropdown {
       display: none;
@@ -205,7 +205,6 @@
       transition: background 0.15s;
     }
     .call-dropdown a:hover { background: rgba(126,201,130,0.08); }
-    .call-dropdown a .icon { font-size: 1.1rem; }
     .call-dropdown .sep { height: 1px; background: var(--border); }
 
     /* LANG SWITCHER — dropdown on all sizes */
@@ -295,9 +294,7 @@
     }
 
     .hero-inner {
-      max-width: 1200px; margin: 0 auto;
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 80px; align-items: center;
+      max-width: 960px; margin: 0 auto;
       position: relative; z-index: 1;
       width: 100%;
     }
@@ -370,39 +367,6 @@
     }
     .btn-secondary:hover { opacity: 0.7; }
 
-    /* HERO STATS */
-    .hero-stats {
-      display: flex; flex-direction: column; gap: 28px;
-    }
-    .stat-card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 28px 32px;
-      position: relative;
-      overflow: hidden;
-      transition: border-color 0.2s, transform 0.2s;
-    }
-    .stat-card:hover { border-color: var(--accent); transform: translateX(4px); }
-    .stat-card::before {
-      content: ''; position: absolute;
-      left: 0; top: 0; bottom: 0; width: 3px;
-      background: var(--green);
-    }
-    .stat-num {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 3rem; line-height: 1;
-      color: var(--accent);
-      letter-spacing: 2px;
-    }
-    .stat-label {
-      font-size: 0.82rem; font-weight: 600;
-      color: var(--muted);
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-top: 4px;
-    }
-
     /* ── SECTIONS COMMON ── */
     section { padding: 100px 40px; position: relative; z-index: 1; }
 
@@ -439,15 +403,9 @@
       gap: 24px 40px;
     }
     .feature-item {
-      display: flex; gap: 16px; align-items: flex-start;
-    }
-    .feature-icon {
-      width: 42px; height: 42px; flex-shrink: 0;
-      background: rgba(58,125,75,0.2);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.2rem;
+      display: flex; flex-direction: column; gap: 6px;
+      padding-left: 14px;
+      border-left: 2px solid var(--border);
     }
     .feature-text strong {
       display: block;
@@ -498,13 +456,6 @@
       line-height: 1;
       margin-bottom: 12px;
       letter-spacing: 2px;
-    }
-    .service-icon {
-      position: absolute;
-      top: 24px; right: 24px;
-      font-size: 1.6rem;
-      line-height: 1;
-      opacity: 0.85;
     }
     .service-name {
       font-size: 0.95rem; font-weight: 700;
@@ -671,8 +622,16 @@
     .contact-person:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
     .contact-name {
       font-weight: 700; font-size: 1rem;
-      color: var(--text); margin-bottom: 12px;
+      color: var(--text);
       letter-spacing: 0.5px;
+    }
+    .contact-nip {
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-weight: 400;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin: 2px 0 12px;
     }
     .contact-line {
       display: flex; align-items: center; gap: 10px;
@@ -684,7 +643,6 @@
       transition: color 0.15s;
     }
     .contact-line a:hover { color: var(--accent); }
-    .contact-icon { font-size: 0.95rem; color: var(--green); }
 
     .contact-message {
       background: var(--bg3);
@@ -723,14 +681,8 @@
     footer {
       background: var(--bg3);
       border-top: 1px solid var(--border);
-      padding: 32px 40px;
-      display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 16px;
-    }
-    footer .foot-left {
-      font-size: 0.8rem; color: var(--muted); font-weight: 300;
-    }
-    footer .foot-right {
+      padding: 24px 40px;
+      display: flex; align-items: center; justify-content: center;
       font-size: 0.8rem; color: var(--muted); font-weight: 300;
     }
 
@@ -772,7 +724,9 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
-      header { padding: 0 16px; }
+      header { padding: 0 14px; }
+      .logo .logo-text { display: none; }
+      .logo { gap: 0; }
       nav {
         display: none; position: absolute; top: var(--header-h); left: 0; right: 0;
         background: var(--bg3); flex-direction: column; padding: 16px 20px; gap: 4px;
@@ -794,22 +748,19 @@
         padding: 0;
       }
 
-      .theme-toggle { width: 40px; height: 40px; font-size: 1.1rem; }
+      .theme-toggle { width: 40px; height: 40px; font-size: 1.05rem; }
 
-      .lang-current { height: 40px; min-width: 58px; font-size: 0.78rem; }
+      .lang-current { height: 40px; min-width: 52px; padding: 0 10px; font-size: 0.76rem; }
       .lang-list .lang-btn { min-height: 44px; padding: 12px 14px; }
 
-      /* Call button → compact: hide label on mobile, show phone icon only */
+      /* Call button → icon-only on mobile */
       .btn-call {
         width: 44px; height: 40px;
         padding: 0;
         justify-content: center;
       }
       .btn-call > span[data-i18n="btn_call"] { display: none; }
-      .btn-call::before {
-        content: '📞';
-        font-size: 1.1rem;
-      }
+      .btn-call .icon-phone { display: block; }
       .btn-call .arrow { display: none; }
       .call-dropdown { min-width: 220px; right: 0; }
       .call-dropdown a { padding: 16px 18px; min-height: 48px; }
@@ -820,16 +771,11 @@
         padding: calc(var(--header-h) + 40px) 20px 60px;
         min-height: auto;
       }
-      .hero-inner { grid-template-columns: 1fr; gap: 40px; }
       .hero-title { font-size: clamp(2.6rem, 11vw, 4rem); }
       .hero-desc { font-size: 1rem; }
       .hero-cta { gap: 12px; }
       .hero-cta .btn-primary { width: 100%; text-align: center; padding: 16px 24px; }
       .hero-cta .btn-secondary { padding: 4px 0; }
-
-      .hero-stats { flex-direction: row; flex-wrap: wrap; gap: 12px; }
-      .stat-card { flex: 1 1 45%; min-width: 0; padding: 20px 22px; }
-      .stat-num { font-size: 2.2rem; }
 
       .about-grid { gap: 30px; }
       .about-features { grid-template-columns: 1fr; gap: 20px; }
@@ -856,16 +802,16 @@
     }
     @media (max-width: 560px) {
       .services-grid { grid-template-columns: 1fr; }
-      .stat-card { flex: 1 1 100%; }
       .logo-mark { height: 36px; }
       .header-right { gap: 6px; }
     }
     @media (max-width: 380px) {
-      header { padding: 0 12px; }
-      .logo { gap: 8px; }
-      .logo-mark { height: 32px; }
+      header { padding: 0 10px; }
+      .logo-mark { height: 30px; }
+      .header-right { gap: 4px; }
       .theme-toggle { width: 36px; height: 36px; }
-      .lang-current { min-width: 46px; height: 36px; padding: 0 8px; }
+      .lang-current { min-width: 44px; height: 36px; padding: 0 8px; font-size: 0.72rem; }
+      .lang-current .arrow { font-size: 0.7rem; }
       .btn-call { width: 40px; height: 36px; }
       .burger { width: 40px; height: 40px; }
     }
